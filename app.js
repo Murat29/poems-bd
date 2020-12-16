@@ -1,12 +1,14 @@
-const http = require("http");
-const port = process.env.PORT || 3000;
+const express = require("express");
+const app = express();
+const PORT = 3030;
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const router = require("./routes");
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader("Content-Type", "text/html");
-  res.setHeader("Access-Control-Allow-Origin", "*");
-});
+app.use(cors());
+app.use(bodyParser.json());
+app.use("/", router);
 
-server.listen(port, () => {
-  console.log(`Server running at port ` + port);
+app.listen(PORT, (_) => {
+  console.log(`listening to ${PORT}`);
 });
